@@ -1,12 +1,13 @@
 variable "name" {
-  default = "waspfoundation"
+  type = string
 }
 
 variable "resource_group_name" {
-  default = "wasp-foundation"
+  type = string
 }
 
 variable "region" {
+  type    = string
   default = "eastus2"
 }
 
