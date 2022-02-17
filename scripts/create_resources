@@ -4,6 +4,9 @@ echo ""
 echo "1. Create Resources"
 echo ""
 
+# Change Backend from local to azurerm and copy to output directory
+sed -i '/backend.*azurerm/ s/azurerm/local/' "${TERRAFORM_SOURCE_CODE_DIRECTORY?}/provider.tf"
+
 terraform \
   -chdir="${TERRAFORM_SOURCE_CODE_DIRECTORY?}" init \
   -reconfigure && \
