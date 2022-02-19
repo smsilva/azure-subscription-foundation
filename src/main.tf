@@ -1,31 +1,28 @@
-resource "azurerm_resource_group" "default" {
-  name     = local.resource_group_name
-  location = local.resource_group_location
+data "azurerm_client_config" "current" {
 }
 
-module "storage_account" {
-  source = "git@github.com:smsilva/azure-storage-account.git//src?ref=development"
+locals {
+  resource_group_name = var.resource_group_name
 
-  name           = local.storage_account_name
-  resource_group = azurerm_resource_group.default
+  administrators = concat(
+    [data.azurerm_client_config.current.object_id],
+    var.administrators
+  )
 }
 
-module "storage_account_container" {
-  source = "git@github.com:smsilva/azure-storage-account.git//src/container?ref=development"
-
-  storage_account = module.storage_account.instance
-  name            = "terraform"
+data "azurerm_resource_group" "default" {
+  name = local.resource_group_name
 }
 
 module "vault" {
   source = "git@github.com:smsilva/azure-key-vault.git//src?ref=development"
 
-  name           = local.key_vault_name
-  resource_group = azurerm_resource_group.default
+  name           = var.key_vault_name
+  resource_group = data.azurerm_resource_group.default
   administrators = local.administrators
 
   depends_on = [
-    azurerm_resource_group.default
+    data.azurerm_resource_group.default
   ]
 }
 
@@ -34,7 +31,7 @@ module "secret_arm_access_key" {
 
   vault = module.vault.instance
   key   = "arm-access-key"
-  value = module.storage_account.instance.primary_access_key
+  value = var.storage_account_access_key
 
   depends_on = [
     module.vault

@@ -1,0 +1,15 @@
+#!/bin/bash
+
+echo ""
+echo "1. Create Storage Account"
+echo ""
+
+terraform \
+  -chdir="${TFSTATE_INIT_DIRECTORY?}" init \
+  -reconfigure && \
+echo "" && \
+terraform \
+  -chdir="${TFSTATE_INIT_DIRECTORY?}" apply \
+  -auto-approve
+
+echo ""

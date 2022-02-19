@@ -1,4 +1,4 @@
-variable "name" {
+variable "key_vault_name" {
   type = string
 }
 
@@ -6,9 +6,10 @@ variable "resource_group_name" {
   type = string
 }
 
-variable "region" {
-  type    = string
-  default = "eastus2"
+variable "storage_account_access_key" {
+  type        = string
+  description = "Storage Account Access Key"
+  sensitive   = true
 }
 
 variable "administrators" {
