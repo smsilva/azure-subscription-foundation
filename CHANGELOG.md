@@ -1,3 +1,9 @@
+## 0.1.1 (2022-02-20)
+
+### Fix
+
+- **scripts/create_storage_account**: verify terraform command result
+
 ## 0.1.0 (2022-02-20)
 
 ### Feat
