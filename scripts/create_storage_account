@@ -12,4 +12,10 @@ terraform \
   -chdir="${TFSTATE_INIT_DIRECTORY?}" apply \
   -auto-approve
 
+TERRAFORM_EXECUTION_RESULT=$?
+
+if [[ ${TERRAFORM_EXECUTION_RESULT} -ne 0 ]]; then
+  exit ${TERRAFORM_EXECUTION_RESULT}
+fi
+
 echo ""
