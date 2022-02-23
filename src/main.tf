@@ -8,18 +8,22 @@ locals {
     [data.azurerm_client_config.current.object_id],
     var.administrators
   )
+
+  tags = {}
 }
 
+# Create into ../tfstate-init module
 data "azurerm_resource_group" "default" {
   name = local.resource_group_name
 }
 
 module "vault" {
-  source = "git@github.com:smsilva/azure-key-vault.git//src?ref=0.3.0"
+  source = "git@github.com:smsilva/azure-key-vault.git//src?ref=0.4.0"
 
   name           = var.key_vault_name
   resource_group = data.azurerm_resource_group.default
   administrators = local.administrators
+  tags           = local.tags
 
   depends_on = [
     data.azurerm_resource_group.default
