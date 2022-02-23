@@ -9,3 +9,7 @@ variable "resource_group_name" {
 variable "resource_group_region" {
   type = string
 }
+
+variable "tags" {
+  default = {}
+}
