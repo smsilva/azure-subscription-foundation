@@ -9,9 +9,11 @@ export TERRAFORM_SOURCE_CODE_DIRECTORY="${SCRIPTS_DIRECTORY}/../src"
 export TFSTATE_INIT_DIRECTORY="${TERRAFORM_SOURCE_CODE_DIRECTORY}/tfstate-init"
 export ARM_BACKEND_FILE_NAME="${TERRAFORM_DIRECTORY}/backend-foundation.conf"
 
-BASE_NAME=$1
+BASE_NAME="$1"
 
-BASE_NAME="${BASE_NAME-wasp}"
+if [[ -z "${BASE_NAME}" ]]; then
+  BASE_NAME="wasp"
+fi
 
 export TF_VAR_storage_account_name="${BASE_NAME}foundation${ARM_SUBSCRIPTION_ID:0:8}"
 export TF_VAR_resource_group_name="${BASE_NAME}-foundation"
