@@ -13,6 +13,13 @@ echo "TF_VAR_resource_group_name.........: ${TF_VAR_resource_group_name}"
 echo "TF_VAR_storage_account_access_key..: ${TF_VAR_storage_account_access_key:0:3}"
 echo ""
 
+cat <<EOF > "${TERRAFORM_AUTO_TFVARS}"
+storage_account_name       = "${ARM_STORAGE_ACCOUNT_NAME}"
+key_vault_name             = "${ARM_STORAGE_ACCOUNT_NAME}"
+resource_group_name        = "${TF_VAR_resource_group_name}"
+storage_account_access_key = "${ARM_STORAGE_ACCOUNT_ACCESS_KEY}"
+EOF
+
 terraform \
   -chdir="${TERRAFORM_SOURCE_CODE_DIRECTORY?}" apply \
   -auto-approve
