@@ -1,5 +1,4 @@
-data "azurerm_client_config" "current" {
-}
+data "azurerm_client_config" "current" {}
 
 locals {
   resource_group_name = var.resource_group_name
