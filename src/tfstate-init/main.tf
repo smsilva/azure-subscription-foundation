@@ -11,15 +11,16 @@ resource "azurerm_resource_group" "default" {
 }
 
 module "storage_account" {
-  source = "git@github.com:smsilva/azure-storage-account.git//src?ref=0.3.0"
+  source = "git@github.com:smsilva/azure-storage-account.git//src?ref=0.4.0"
 
-  name           = local.storage_account_name
-  resource_group = azurerm_resource_group.default
-  tags           = var.tags
+  name                     = local.storage_account_name
+  resource_group           = azurerm_resource_group.default
+  allow_blob_public_access = true
+  tags                     = var.tags
 }
 
 module "storage_account_container" {
-  source = "git@github.com:smsilva/azure-storage-account.git//src/container?ref=0.3.0"
+  source = "git@github.com:smsilva/azure-storage-account.git//src/container?ref=0.4.0"
 
   storage_account = module.storage_account.instance
   name            = "terraform"
